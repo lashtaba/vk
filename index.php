@@ -10,6 +10,7 @@ $ex = $ex['response'];
 // array_shift($array);
 print_r("<html><body style='padding: 20px;'>");
 print_r("<div style='display:inline-block; width: 40%; height: 92%; overflow: auto; border: 1px solid #00A66D; border-radius: 20px; position: relative;'>");
+
 print_r("<form id='fform' class='form' action='index.php' method='get'>");
 foreach ($ex as $count) {
   if ($count == 143) {
@@ -28,5 +29,14 @@ foreach ($ex as $count) {
 }
 print_r("</form></div>");
 print_r("<button form='fform' type='submit' value='submit' style='margin-top: 8px; position: absolute; bottom: 10px; left: 35%'>Выбрать</button>");
+$needGids = $_GET;
+$Gids = [];
+foreach ($needGids as $key => $value) {
+	array_push($Gids, $value);
+}
+$posts = file_get_contents("https://api.vk.com/api.php?oauth=1&method=wall.get&owner_id=-98006902&access_token=603576045948066233d3425f547b93d7a2a518ce0abc4ca7c79de78233c819375f20e51e83f7d0e98fbe3");
+print_r("<div style='display: inline-block; width: 40%; height: 92%; vertical-align: center; margin-left: 20px; overflow: auto; border: 1px solid #00A66D; border-radius: 20px;'>");
+print_r($posts);
+print_r("</div>");
 print_r("</body></html>");
  ?>
