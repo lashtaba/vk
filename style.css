@@ -1,0 +1,30 @@
+.menu, .area {
+	height: 100vh;
+	padding-top: 10px;
+}
+
+
+.menu {
+	background-color: #303030FF;
+}
+
+.area {
+	background-color: #EBEDEFFF;
+}
+
+.groups,.posts {
+	margin: 10px;
+	border: 2px solid rgba(0, 0, 0, 0.3);
+	background-color: #fff;
+}
+
+.groups {
+	height: 90vh;
+	position: relative;
+}
+
+#btndgroups {
+	position: relative;
+	bottom: -90%;
+	right: -53%;
+}
