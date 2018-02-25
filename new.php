@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
     <script
       src="http://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -21,31 +22,41 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-2 menu">
-          <div class="row">
-            <div class="col align-self-end">
 
-            </div>
-          </div>
+          <form id="btngroups" class="GetGroupsForm">
+            <input type="submit" value="Получить список групп" class="btn btn-outline-success">
+          </form>
+
+             
+
+          
         </div>
         <div class="col area">
           <div class="row">
-            <div class="col-5 groups">
-              <form id="btndgroups" class="GetGroupsForm">
-                <input type="submit" value="Получить список групп" class="btn btn-outline-success">
-              </form>
+            <div class="col-5 groups table-responsive" id="groups">
+            </div>
+            <div class="col-6 posts">
 
             </div>
-            <div class="col-6 posts">cc</div>
+              
           </div>
         </div>
       </div>
     </div>
 
+<script id="entry-template" type="text/x-handlebars-template">
+  <form action="function.php" method="get" id="btnposts">
+    {{#each response}}
+    <label><input type="checkbox" name={{screen_name}} value={{gid}}><img src={{photo}} alt={{screen_name}}> {{name}}</label><br>
+    {{/each}}
+    <input type="submit" value="Посты" class="btn btn-outline-success">
+  </form>
+</script>
+
 <script>
 $(document).ready(function(){
-  $( "#btndgroups" ).submit(function( event ) {
-
-    event.preventDefault();
+  $( "#btngroups" ).submit(function( event ) {
+      event.preventDefault();
 
     $.ajax({
       type: 'get',
@@ -54,12 +65,31 @@ $(document).ready(function(){
       contentType: false,
       cache: false,
       proccessData: true,
+      success: function(data) {
+        var json = JSON.parse(data);
+        var source   = document.getElementById("entry-template").innerHTML;
+        var template = Handlebars.compile(source);
+        var html    = template(json);
+        $('#groups').append(html);
+      }
+    })
+  });
+
+$(document).on('submit', '#btnposts', function() {
+    event.preventDefault();
+    var data = $('#btnposts').serialize();
+    $.ajax({
+      type: 'get',
+      url: 'function.php',
+      data: 'getPosts=yes&'+data,
+      contentType: false,
+      cache: false,
+      proccessData: true,
       success: function(result) {
         alert(result);
       }
     })
   });
-
 
 
 })

@@ -13,6 +13,7 @@
 }
 
 .groups,.posts {
+
 	margin: 10px;
 	border: 2px solid rgba(0, 0, 0, 0.3);
 	background-color: #fff;
@@ -20,11 +21,5 @@
 
 .groups {
 	height: 90vh;
-	position: relative;
 }
 
-#btndgroups {
-	position: relative;
-	bottom: -90%;
-	right: -53%;
-}
