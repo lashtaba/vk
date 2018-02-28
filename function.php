@@ -1,6 +1,6 @@
 <?php
 
-$token = "1c3bd0d3897924416b95224027df27a15e5ae43590e4577511f61a1d41ee9f7bbc81d2a1d894d5920d825";
+$token = "123";
 $my_id = "267220002";
 $get_url = "https://api.vk.com/api.php?oauth=1&method=";
 $posts = ['76184323', '98006902'];
