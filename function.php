@@ -1,8 +1,10 @@
-<?php 
+<?php
 
-$token = "f418c1bc10086f0f5c3a833c6f62014d83a47c7d51bede242c0948bb95071bfa1aff9027406e5c913f92c";
+$token = "1c3bd0d3897924416b95224027df27a15e5ae43590e4577511f61a1d41ee9f7bbc81d2a1d894d5920d825";
 $my_id = "267220002";
 $get_url = "https://api.vk.com/api.php?oauth=1&method=";
+$posts = ['76184323', '98006902'];
+$post = '76184323,-98006902';
 
 function getGroups($get_url, $my_id, $token) {
 	$method = "groups.get&";
@@ -26,20 +28,32 @@ if (isset($_GET['getGroups'])) {
 }
 
 if (isset($_GET['getPosts'])) {
-	print_r(var_dump($_GET));
+	print_r(getPosts($get_url, $post, $token));
 }
 
-$posts = [76184323, 98006902];
-$post = $posts[0];
-function getPosts($get_url, $my_id, $token, $post) {
-	$method = "groups.get&";
-	$setopt = "extended=1&fields=name,50photo&filter=groups,publics&";
-	$user_id = "user_id=" . $my_id . "&";
+function getPosts($get_url, $post, $token) {
+	$time = time()-30000;
+	$method = "newsfeed.get&";
+	$setopt = "source_ids=-" . $post . "&filters=post&start_time=" . $time . "&";
 	$access_token = "access_token=" . $token;
-	$url = $get_url . $method . $user_id . $setopt . $access_token;
+	$url = $get_url . $method . $setopt . $access_token;
 	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$data = curl_exec($ch);
 	curl_close($ch);
+	return $data;
 }
+
+print_r(getPosts($get_url, $post, $token));
+// function getPosts($get_url, $post, $token) {
+// 	$method = "wall.get&";
+// 	$setopt = "owner_id=-" . $post . "&count=1&extended=1&";
+// 	$access_token = "access_token=" . $token;
+// 	$url = $get_url . $method . $setopt . $access_token;
+// 	$ch = curl_init($url);
+// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// 	$data = curl_exec($ch);
+// 	curl_close($ch);
+// 	return $data;
+// }
  ?>

@@ -22,35 +22,33 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-2 menu">
-
           <form id="btngroups" class="GetGroupsForm">
             <input type="submit" value="Получить список групп" class="btn btn-outline-success">
           </form>
-
-             
-
-          
         </div>
         <div class="col area">
           <div class="row">
             <div class="col-5 groups table-responsive" id="groups">
             </div>
-            <div class="col-6 posts">
-
+            <div class="col-6 posts" id="posts">
             </div>
-              
           </div>
         </div>
       </div>
     </div>
 
-<script id="entry-template" type="text/x-handlebars-template">
+<script id="group-template" type="text/x-handlebars-template">
   <form action="function.php" method="get" id="btnposts">
     {{#each response}}
     <label><input type="checkbox" name={{screen_name}} value={{gid}}><img src={{photo}} alt={{screen_name}}> {{name}}</label><br>
     {{/each}}
     <input type="submit" value="Посты" class="btn btn-outline-success">
   </form>
+</script>
+<script id="posts-template" type="text/x-handlebars-template">
+  <div class="post">
+    <p>{{response.wall.id}}</p>
+  </div>
 </script>
 
 <script>
@@ -67,7 +65,7 @@ $(document).ready(function(){
       proccessData: true,
       success: function(data) {
         var json = JSON.parse(data);
-        var source   = document.getElementById("entry-template").innerHTML;
+        var source   = document.getElementById("group-template").innerHTML;
         var template = Handlebars.compile(source);
         var html    = template(json);
         $('#groups').append(html);
@@ -85,8 +83,12 @@ $(document).on('submit', '#btnposts', function() {
       contentType: false,
       cache: false,
       proccessData: true,
-      success: function(result) {
-        alert(result);
+      success: function(data) {
+        var json = JSON.parse(data);
+        var source   = document.getElementById("posts-template").innerHTML;
+        var template = Handlebars.compile(source);
+        var html    = template(json);
+        $('#posts').append(html);
       }
     })
   });
@@ -96,7 +98,8 @@ $(document).on('submit', '#btnposts', function() {
 </script>
 
 
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js">
+</script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <!--     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
