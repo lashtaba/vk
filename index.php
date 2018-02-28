@@ -1,6 +1,6 @@
 <?php
 
-$ex = file_get_contents("https://api.vk.com/api.php?oauth=1&method=groups.get&user_id=267220002&extended=1&fields=name,50photo&access_token=603576045948066233d3425f547b93d7a2a518ce0abc4ca7c79de78233c819375f20e51e83f7d0e98fbe3");
+$ex = file_get_contents("https://api.vk.com/api.php?oauth=1&method=groups.get&user_id=267220002&extended=1&fields=name,50photo&access_token=.");
 
 $ex = json_decode($ex, true);
 $ex = $ex['response'];
@@ -30,7 +30,7 @@ print_r("</form></div>");
 // foreach ($needGids as $key => $value) {
 // 	array_push($Gids, $value);
 // }
-// $posts = file_get_contents("https://api.vk.com/api.php?oauth=1&method=wall.get&owner_id=-98006902&access_token=603576045948066233d3425f547b93d7a2a518ce0abc4ca7c79de78233c819375f20e51e83f7d0e98fbe3");
+// $posts = file_get_contents("https://api.vk.com/api.php?oauth=1&method=wall.get&owner_id=-98006902&access_token=.");
 // print_r("<div style='display: inline-block; width: 40%; height: 92%; vertical-align: center; margin-left: 20px; overflow: auto; border: 1px solid #00A66D; border-radius: 20px;'>");
 // $posts = json_decode($posts, true);
 // $posts = $posts['response'];
@@ -39,7 +39,7 @@ print_r("</form></div>");
 // print_r($newPost['text']);
 // $comments = $newPost['comments'];
 // print_r("<br>");
-// $comment = file_get_contents("https://api.vk.com/api.php?oauth=1&method=wall.getComments&owner_id=-98006902&post_id=109919&access_token=603576045948066233d3425f547b93d7a2a518ce0abc4ca7c79de78233c819375f20e51e83f7d0e98fbe3");
+// $comment = file_get_contents("https://api.vk.com/api.php?oauth=1&method=wall.getComments&owner_id=-98006902&post_id=109919&access_token=.");
 // print_r($comment);
 // print_r("</div>");
 print_r("</body></html>");
